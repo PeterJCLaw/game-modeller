@@ -14,4 +14,4 @@ class Point(object):
 		return hash(self.x) ** hash(self.y)
 
 	def __repr__(self):
-		return "Point(%d, $d)" % (self.x, self.y)
+		return "Point(%d, %d)" % (self.x, self.y)
