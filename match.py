@@ -23,7 +23,7 @@ class Match(object):
 	def waitForStart(self):
 		self._game_start.wait()
 
-	def start(self)
+	def start(self):
 		"Start the game"
 		self._game_start.set()
 
