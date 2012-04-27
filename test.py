@@ -16,6 +16,11 @@ class PointTests(unittest.TestCase):
 		assert a != b
 		assert (a == b) == False
 
+	def testProperties(self):
+		p = Point(0,9)
+		self._assertEqual(p.x, 0)
+		self._assertEqual(p.y, 9)
+
 	def testEquals(self):
 		a = Point(0,9)
 		b = Point(0,9)
