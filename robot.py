@@ -12,6 +12,11 @@ class Robot(object):
 		self._match = match
 		self._arena = arena
 		self._opponents = set()
+		self._location = Point()
+
+	@property
+	def location(self):
+		return self._location
 
 	def addOpponents(self, robots):
 		for r in robots:
@@ -37,7 +42,9 @@ class Robot(object):
 		end = datetime.now() + timedelta(seconds = 1)
 		while datetime.now() < end:
 			time.sleep(0.1)
-			self.location = self.location + dist
+			self._location = self.location + dist
 
 	def getTarget(self):
 		"Figure out where to move towards"
+		# move towards the middle of the arena
+		return Point(self._arena.width / 2, self._arena.height / 2)
