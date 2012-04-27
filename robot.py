@@ -11,6 +11,7 @@ class Robot(object):
 		self._id = id
 		self._match = match
 		self._arena = arena
+		self._opponents = set()
 
 	def addOpponents(self, robots):
 		for r in robots:
