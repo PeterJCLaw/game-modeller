@@ -23,7 +23,7 @@ class Match(object):
 			r.addOpponents(robots)
 
 	def waitForStart(self):
-		self._game_start.wait()
+		assert self._game_start.wait(3)
 
 	def start(self):
 		"Start the game"
