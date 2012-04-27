@@ -13,3 +13,7 @@ class Point(complex):
 	@property
 	def y(self):
 		return self.imag
+
+class Vector(Point):
+	def __repr__(self):
+		return "Vector(%d, %d)" % (self.x, self.y)
