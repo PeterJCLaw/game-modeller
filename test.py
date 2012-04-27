@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
-from point import Point
 import unittest
+
+from point import Point
+from arena import Arena
+import util
 
 class PointTests(unittest.TestCase):
 
@@ -40,6 +43,27 @@ class PointTests(unittest.TestCase):
 		a = Point(0,0)
 		b = Point(9,9)
 		self._assertNotEqual(a, b)
+
+class ArenaTests(unittest.TestCase):
+
+	def setUp(self):
+		self._arena = Arena(8, 8)
+
+	def testCorner0(self):
+		p = self._arena.corner_location(0)
+		util.assertEqual(Point(0,0), p)
+
+	def testCorner1(self):
+		p = self._arena.corner_location(1)
+		util.assertEqual(Point(0,8), p)
+
+	def testCorner2(self):
+		p = self._arena.corner_location(2)
+		util.assertEqual(Point(8,8), p)
+
+	def testCorner3(self):
+		p = self._arena.corner_location(3)
+		util.assertEqual(Point(8,0), p)
 
 if __name__ == '__main__':
 	unittest.main(buffer=True)
