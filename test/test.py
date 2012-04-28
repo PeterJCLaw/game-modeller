@@ -2,9 +2,9 @@
 
 import unittest
 
+import util
 from point import Point, Vector
 from arena import Arena
-import util
 
 class VectorTests(unittest.TestCase):
 
