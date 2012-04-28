@@ -5,7 +5,14 @@ from datetime import timedelta, datetime
 import time
 
 class Robot(object):
+	# Speed (m/s)
 	_speed = 0.1
+
+	# How often to update position (seconds)
+	_updateDelay = 0.1
+
+	# How long to move for, before re-evaluating the target (seconds)
+	_moveDuration = 1
 
 	def __init__(self, id, match, arena):
 		self._id = id
@@ -41,12 +48,13 @@ class Robot(object):
 		Move towards the given Point for about a second
 		"""
 
-		dist = target * self._speed
+		to_move = (target-self._location)
+		dist = to_move * self._speed
 
-		end = datetime.now() + timedelta(seconds = 1)
+		end = datetime.now() + timedelta(seconds = self._moveDuration)
 		while datetime.now() < end:
-			time.sleep(0.1)
-			self._location = self._location + dist
+			time.sleep(self._updateDelay)
+			self._location = self._location + dist * self._updateDelay
 
 	def getTarget(self):
 		"""
