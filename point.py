@@ -6,7 +6,7 @@ class Vector(complex):
 		super(Vector, self).__init__(x, y)
 
 	def __repr__(self):
-		return "Vector(%d, %d)" % (self.x, self.y)
+		return "Vector(%.2f, %.2f)" % (self.x, self.y)
 
 	def __str__(self):
 		return self.__repr__()
@@ -111,7 +111,7 @@ class Vector(complex):
 
 class Point(Vector):
 	def __repr__(self):
-		return "Point(%d, %d)" % (self.x, self.y)
+		return "Point(%.2f, %.2f)" % (self.x, self.y)
 
 	def __mul__(self, other):
 		return NotImplemented
