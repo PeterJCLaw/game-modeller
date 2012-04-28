@@ -49,10 +49,13 @@ class Robot(object):
 		"""
 
 		to_move = (target-self._location)
+#		print 'to_move', to_move
 		dist = to_move * self._speed
+#		print 'dist', dist
 
 		end = datetime.now() + timedelta(seconds = self._moveDuration)
 		while datetime.now() < end:
+#			print 'Location', self._location
 			time.sleep(self._updateDelay)
 			self._location = self._location + dist * self._updateDelay
 

@@ -37,6 +37,7 @@ class Match(object):
 				pos = r.location
 				pos = dict(x = pos.x, y = pos.y)
 				print json.dumps(dict(id = r.id, pos = pos))
+				sys.stdout.flush()
 			time.sleep(0.1)
 
 if __name__ == '__main__':
