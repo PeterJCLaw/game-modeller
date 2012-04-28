@@ -1,5 +1,6 @@
 
 import json
+import sys
 import time
 from threading import Thread, Event
 
@@ -36,7 +37,7 @@ class Match(object):
 				pos = r.location
 				pos = dict(x = pos.x, y = pos.y)
 				print json.dumps(dict(id = r.id, pos = pos))
-			time.sleep(1)
+			time.sleep(0.1)
 
 if __name__ == '__main__':
 	m = Match()
