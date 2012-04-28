@@ -8,6 +8,9 @@ class Vector(complex):
 	def __repr__(self):
 		return "Vector(%d, %d)" % (self.x, self.y)
 
+	def __str__(self):
+		return self.__repr__()
+
 	def __add__(self, other):
 		if not isinstance(other, complex):
 			return NotImplemented

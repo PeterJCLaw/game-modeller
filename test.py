@@ -44,6 +44,13 @@ class VectorTests(unittest.TestCase):
 			self._hlf / self._v
 		self.assertRaises(TypeError, go)
 
+	def testSub(self):
+		p = Point(5,5)
+		p2 = p - self._v
+
+#		self.assertIsInstance(p2, Point)
+		util.assertEqual(Point(2, 1), p2)
+
 class PointTests(unittest.TestCase):
 
 	def _assertEqual(self, a, b):
@@ -86,6 +93,16 @@ class PointTests(unittest.TestCase):
 		a = Point(0,0)
 		b = Point(9,9)
 		self._assertNotEqual(a, b)
+
+	def testSub(self):
+		p1 = Point(5,5)
+		p2 = Point(3,4)
+
+		v = p1 - p2
+
+		self.assertIsInstance(v, Vector)
+		util.assertEqual(Vector(2, 1), v)
+
 
 class ArenaTests(unittest.TestCase):
 
