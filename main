@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+from datetime import timedelta, datetime
+import time
+import subprocess
+import sys
+import json
+
+def procOutput(proc):
+	while proc.poll() is None:
+		data = ''
+		while '\n' not in data and proc.poll() is None:
+			data += proc.stdout.read(1)
+		yield data
+
+def fromJSON(lines):
+	for line in lines:
+		try:
+			yield json.loads(line)
+		except:
+			break
+
+def main():
+	procInfo = [ 'python', 'src/match.py' ]
+	proc = subprocess.Popen( procInfo,
+	                         stdout = subprocess.PIPE
+	                       )
+
+	start = datetime.now()
+	end = start + timedelta( seconds = 20 )	# 3 minute match
+
+	while datetime.now() < end:
+		for data in fromJSON(procOutput(proc)):
+			# do something clever with the data
+			print data
+
+		if proc.poll() is not None:
+			break
+
+	if proc.returncode is None:
+		proc.terminate()
+
+if __name__ == '__main__':
+	main()
