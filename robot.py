@@ -15,6 +15,10 @@ class Robot(object):
 		self._location = Point()
 
 	@property
+	def id(self):
+		return self._id
+
+	@property
 	def location(self):
 		return self._location
 
