@@ -98,6 +98,6 @@ class MidPointRobot(Robot):
         dist_b = abs(position - b.location)
 
         # Minimise dist_mid, Maximise dist_{a,b}
-        score = dist_a + dist_b - ( 1.5 * dist_mid )
+        score = dist_a * 1.3 + dist_b - ( 1.8 * dist_mid )
 
         return score
