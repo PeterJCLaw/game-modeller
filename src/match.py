@@ -6,6 +6,7 @@ from threading import Thread, Event
 
 from arena import Arena
 from robot import Robot
+from dict_converters import *
 
 class Match(object):
 
@@ -34,9 +35,8 @@ class Match(object):
 
 		while True:
 			for r in self._robots:
-				pos = r.location
-				pos = dict(x = pos.x, y = pos.y)
-				print json.dumps(dict(id = r.id, pos = pos))
+				rd = robot_to_dict(r)
+				print json.dumps(rd)
 				sys.stdout.flush()
 			time.sleep(0.1)
 
