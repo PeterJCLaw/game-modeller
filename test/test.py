@@ -8,4 +8,4 @@ from robottests import RobotMoveTests
 from vectortests import VectorTests
 
 if __name__ == '__main__':
-	unittest.main(buffer=True)
+    unittest.main(buffer=True)

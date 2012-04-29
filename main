@@ -8,37 +8,37 @@ from viewer.queueddatasource import QueuedDataSource
 from viewer.robotviewer import RobotViewer
 
 def procOutput(proc):
-	while proc.poll() is None:
-		data = ''
-		while '\n' not in data and proc.poll() is None:
-			data += proc.stdout.read(1)
-		yield data
+    while proc.poll() is None:
+        data = ''
+        while '\n' not in data and proc.poll() is None:
+            data += proc.stdout.read(1)
+        yield data
 
 def fromJSON(lines):
-	for line in lines:
-		try:
-			yield json.loads(line)
-		except:
-			break
+    for line in lines:
+        try:
+            yield json.loads(line)
+        except:
+            break
 
 def main():
-	procInfo = [ 'python', 'src/match.py' ]
-	proc = subprocess.Popen( procInfo,
-	                         stdout = subprocess.PIPE
-	                       )
+    procInfo = [ 'python', 'src/match.py' ]
+    proc = subprocess.Popen( procInfo,
+                             stdout = subprocess.PIPE
+                           )
 
-	def conv(p):
-		for d in fromJSON(procOutput(p)):
-			yield d
+    def conv(p):
+        for d in fromJSON(procOutput(p)):
+            yield d
 
-	qds = QueuedDataSource(proc, conv)
-	rv = RobotViewer(qds, duration = 5)
-	qds.start()
+    qds = QueuedDataSource(proc, conv)
+    rv = RobotViewer(qds, duration = 5)
+    qds.start()
 
-	pyglet.app.run()
+    pyglet.app.run()
 
-	if proc.returncode is None:
-		proc.terminate()
+    if proc.returncode is None:
+        proc.terminate()
 
 if __name__ == '__main__':
-	main()
+    main()
