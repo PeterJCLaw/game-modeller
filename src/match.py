@@ -10,14 +10,15 @@ from dict_converters import *
 
 class Match(object):
 
-	def __init__(self):
+	def __init__(self, robots, arena = None):
 		# Game start lock
 		self._game_start = Event()
 
 		self._robots = []
-		arena = Arena(8.0, 8.0)
+		if arena is None:
+			arena = Arena(8.0, 8.0)
 
-		for i in range(4):
+		for i in range(robots):
 			r = Robot(i, self, arena)
 			self._robots.append(r)
 			t = Thread( target = r.run, args = (i, ) )
@@ -43,5 +44,6 @@ class Match(object):
 			time.sleep(0.1)
 
 if __name__ == '__main__':
-	m = Match()
-	m.start()
+	# Small values for now
+	m = Match(1)
+	m.start(5)
