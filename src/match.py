@@ -31,6 +31,8 @@ class Match(object):
 
 	def start(self):
 		"Start the game"
+		md = dict(type = 'match', robots = len(self._robots))
+		print json.dumps(md)
 		self._game_start.set()
 
 		while True:
