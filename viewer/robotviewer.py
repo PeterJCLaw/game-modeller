@@ -23,7 +23,9 @@ class RobotViewer(pyglet.window.Window):
 	             width  = ARENA_SIZE,
 	             height = ARENA_SIZE,
 	            ):
-		super(RobotViewer, self).__init__(caption = "Robot Viewer")
+		super(RobotViewer, self).__init__(caption = "Robot Viewer",
+		                                  width = width,
+		                                  height = height)
 		self._batch = pyglet.graphics.Batch()
 
 		self._ds = data_source
