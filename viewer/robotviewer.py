@@ -57,6 +57,8 @@ class RobotViewer(pyglet.window.Window):
 		x = int(x * 100)
 		y = int(y * 100)
 
+#		print "Updating robot '%d': %s" % ( rid, (x,y) )
+
 		if not self._robots.has_key(rid):
 			colour = colour_from_id(rid)
 			self._robots[rid] = glutils.batch_robot(self._batch, (x, y), colour)
