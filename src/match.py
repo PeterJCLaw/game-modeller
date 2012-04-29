@@ -54,6 +54,8 @@ class Match(object):
 
 if __name__ == '__main__':
 	# Small values for now
-	m = Match(1)
-	m.start(5)
-	m.end()
+	m = Match(4)
+	try:
+		m.start(5)
+	finally:
+		m.end()
