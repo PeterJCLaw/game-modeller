@@ -1,7 +1,10 @@
 
-from cmath import phase
+from cmath import phase, pi
 
 def angle_between(a, b):
     a_phase = phase(a)
     b_phase = phase(b)
-    return a_phase - b_phase
+    angle = abs(a_phase - b_phase)
+    while angle > pi:
+        angle -= pi
+    return angle
