@@ -3,6 +3,7 @@
 import unittest
 
 from arenatests import ArenaTests
+from mid_point_robottests import MidPointRobotTests
 from pointtests import PointTests
 from robottests import RobotMoveTests
 from vectortests import VectorTests
