@@ -3,8 +3,10 @@ import pyglet
 import Queue
 
 import glutils
-from glutils import ARENA_SIZE, ROBOT_SIZE
 from queueddatasource import QueuedDataSource
+
+ARENA_SIZE = 800
+ROBOT_SIZE = 50
 
 def limit(n, bottom, top):
 	return min(top, max(n, bottom))
@@ -39,6 +41,10 @@ class RobotViewer(pyglet.window.Window):
 		self.clear()
 		self._batch.draw()
 
+	def _batch_robot(self, rid, center):
+		colour = colour_from_id(rid)
+		self._robots[rid] = glutils.batch_sqaure2(self._batch, center, ROBOT_SIZE, colour)
+
 	def _update(self, dt):
 		data = None
 		try:
@@ -60,10 +66,10 @@ class RobotViewer(pyglet.window.Window):
 #		print "Updating robot '%d': %s" % ( rid, (x,y) )
 
 		if not self._robots.has_key(rid):
-			colour = colour_from_id(rid)
-			self._robots[rid] = glutils.batch_robot(self._batch, (x, y), colour)
+			self._batch_robot(rid, (x,y))
 		else:
-			(idx, verts) = glutils.sqaure_vertices((x,y), ROBOT_SIZE)
+			origin = glutils.make_origin((x,y), ROBOT_SIZE)
+			(idx, verts) = glutils.sqaure_vertices(origin, ROBOT_SIZE)
 			self._robots[rid].vertices = verts
 
 	def _end(self, dt):
