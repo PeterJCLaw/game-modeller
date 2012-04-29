@@ -1,8 +1,8 @@
+import time
+from datetime import timedelta, datetime
 
 from point import Point
 
-from datetime import timedelta, datetime
-import time
 
 class Robot(object):
 	# Speed (m/s)
