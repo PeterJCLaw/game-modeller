@@ -23,6 +23,9 @@ class Robot(object):
         self._location = Point()
         self._end = False
 
+    def __repr__(self):
+        return "Robot(%s)" % ( self._id )
+
     @property
     def id(self):
         return self._id
