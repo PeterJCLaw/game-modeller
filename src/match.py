@@ -9,7 +9,6 @@ from dict_converters import *
 from robot import Robot
 
 class Match(object):
-
     def __init__(self, robots, arena = None):
         # Game start lock
         self._game_start = Event()
@@ -42,7 +41,7 @@ class Match(object):
         assert self._game_start.wait(3)
 
     def start(self, duration = 180):
-        "Start the game"
+        """Start the game."""
         md = dict(type = 'match', state = 'start', robots = len(self._robots))
         print json.dumps(md)
         self._print_state()
