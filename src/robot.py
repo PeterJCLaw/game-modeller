@@ -67,7 +67,10 @@ class Robot(object):
         while datetime.now() < end:
 #            print 'Location', self._location
             time.sleep(self._updateDelay)
-            self._location = self._location + to_move
+            pos = self._location + to_move
+            if not self._arena.position_valid(pos):
+                return
+            self._location = pos
 
 
     def get_target(self):
