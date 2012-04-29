@@ -32,6 +32,12 @@ def update(dt):
 	(idx, verts) = sqaure_vertices((x,y), 20)
 	my_square.vertices = verts
 
+def end(dt):
+	window.close()
+
 pyglet.clock.schedule_interval(update, 0.01)
+
+# Will close the demo in 20s.
+pyglet.clock.schedule_interval(end, 20)
 
 pyglet.app.run()
