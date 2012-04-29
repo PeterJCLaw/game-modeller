@@ -29,13 +29,13 @@ class Match(object):
 	def waitForStart(self):
 		assert self._game_start.wait(3)
 
-	def start(self):
+	def start(self, duration = 180):
 		"Start the game"
 		md = dict(type = 'match', robots = len(self._robots))
 		print json.dumps(md)
 		self._game_start.set()
 
-		while True:
+		for i in xrange(10 * duration):
 			for r in self._robots:
 				rd = robot_to_dict(r)
 				print json.dumps(rd)
