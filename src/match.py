@@ -7,6 +7,7 @@ from threading import Thread, Event
 from arena import Arena
 from dict_converters import *
 from robot import Robot
+from mid_point_robot import MidPointRobot
 
 class Match(object):
     def __init__(self, robot_count = 4, robot_type = Robot, robots = None, arena = None):
@@ -58,7 +59,7 @@ class Match(object):
             time.sleep(0.1)
 
 if __name__ == '__main__':
-    m = Match(4)
+    m = Match(4, robot_type = MidPointRobot)
     try:
         m.start()
     finally:
