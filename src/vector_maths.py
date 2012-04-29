@@ -1,5 +1,7 @@
 
-from cmath import phase, pi
+from cmath import phase, pi, polar, rect
+
+from point import Vector
 
 def angle_between(a, b):
     a_phase = phase(a)
@@ -11,3 +13,14 @@ def angle_between(a, b):
 
 def midpoint(a, b):
     return (a + b) / 2
+
+def length_towards(length, target):
+    """
+    Return a Vector that has length 'length',
+    in the same direction as 'target'.
+    """
+
+    (r, phi) = polar(target)
+    c = rect(length, phi)
+    v = Vector(c.real, c.imag)
+    return v

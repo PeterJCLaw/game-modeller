@@ -3,8 +3,8 @@ import unittest
 from math import pi
 
 import util
-from point import Point
-from vector_maths import angle_between, midpoint
+from point import Point, Vector
+from vector_maths import angle_between, midpoint, length_towards
 
 class VectorMathsTests(unittest.TestCase):
 
@@ -60,6 +60,19 @@ class VectorMathsTests(unittest.TestCase):
         exp = Point(2, 2)
         mid = midpoint(self._a, self._b)
         util.assertEqual(exp, mid)
+
+
+    def test_length_towards(self):
+        exp = Vector(0, 2)
+        actual = length_towards(2, self._a)
+        actual = Vector(round(actual.x, 5), round(actual.y, 5))
+        util.assertEqual(exp, actual)
+
+    def test_length_beyond(self):
+        exp = Vector(0, 8)
+        actual = length_towards(8, self._a)
+        actual = Vector(round(actual.x, 5), round(actual.y, 5))
+        util.assertEqual(exp, actual)
 
 if __name__ == '__main__':
     unittest.main(buffer=True)
