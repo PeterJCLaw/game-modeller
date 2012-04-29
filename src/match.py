@@ -27,6 +27,12 @@ class Match(object):
 		for r in self._robots:
 			r.addOpponents(self._robots)
 
+	def _print_state(self):
+		for r in self._robots:
+			rd = robot_to_dict(r)
+			print json.dumps(rd)
+			sys.stdout.flush()
+
 	def waitForStart(self):
 		assert self._game_start.wait(3)
 
@@ -34,13 +40,11 @@ class Match(object):
 		"Start the game"
 		md = dict(type = 'match', robots = len(self._robots))
 		print json.dumps(md)
+		self._print_state()
 		self._game_start.set()
 
 		for i in xrange(10 * duration):
-			for r in self._robots:
-				rd = robot_to_dict(r)
-				print json.dumps(rd)
-				sys.stdout.flush()
+			self._print_state()
 			time.sleep(0.1)
 
 if __name__ == '__main__':
