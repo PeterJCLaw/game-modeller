@@ -5,6 +5,7 @@ import time
 from threading import Thread, Event
 
 from arena import Arena
+from debug_writer import DebugWriter
 from dict_converters import *
 from robot import Robot
 from mid_point_robot import MidPointRobot
@@ -33,14 +34,20 @@ class Match(object):
 
             r.add_opponents(self._robots)
 
+        self._out = sys.stdout
+        sys.stdout = DebugWriter(sys.stdout)
+
+    def _json_print(self, data):
+        print >> self._out, json.dumps(data)
+        self._out.flush()
+
     def _print_state(self):
         for r in self._robots:
             rd = robot_to_dict(r)
-            print json.dumps(rd)
-            sys.stdout.flush()
+            self._json_print(rd)
 
     def end(self):
-        print dict(type = 'match', state = 'end')
+        self._json_print(dict(type = 'match', state = 'end'))
         for r in self._robots:
             r.stop()
 
@@ -50,7 +57,7 @@ class Match(object):
     def start(self, duration = 180):
         """Start the game."""
         md = dict(type = 'match', state = 'start', robots = len(self._robots))
-        print json.dumps(md)
+        self._json_print(md)
         self._print_state()
         self._game_start.set()
 

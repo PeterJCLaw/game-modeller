@@ -28,7 +28,10 @@ def main():
 
     def conv(p):
         for d in decode_json_from_lines(read_process_output_non_blocking(p)):
-            yield d
+            if d['type'] == 'debug':
+                print d['message']
+            else:
+                yield d
 
     data_source = QueuedDataSource(match_process, conv)
     viewer = RobotViewer(data_source)
