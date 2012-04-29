@@ -3,6 +3,7 @@ import pyglet
 import Queue
 
 import glutils
+from glutils import ARENA_SIZE, ROBOT_SIZE
 from queueddatasource import QueuedDataSource
 
 def limit(n, bottom, top):
@@ -19,8 +20,8 @@ def colour_from_id(rid):
 class RobotViewer(pyglet.window.Window):
 	def __init__(self, data_source,
 	             duration = 180,
-	             width = glutils.ARENA_SIZE,
-	             height = glutils.ARENA_SIZE,
+	             width  = ARENA_SIZE,
+	             height = ARENA_SIZE,
 	            ):
 		super(RobotViewer, self).__init__(caption = "Robot Viewer")
 		self._batch = pyglet.graphics.Batch()
@@ -58,7 +59,7 @@ class RobotViewer(pyglet.window.Window):
 			colour = colour_from_id(rid)
 			self._robots[rid] = glutils.batch_robot(self._batch, (x, y), colour)
 		else:
-			(idx, verts) = glutils.sqaure_vertices((x,y), glutils.ROBOT_SIZE)
+			(idx, verts) = glutils.sqaure_vertices((x,y), ROBOT_SIZE)
 			self._robots[rid].vertices = verts
 
 	def _end(self, dt):
