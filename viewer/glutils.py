@@ -1,6 +1,9 @@
 
 import pyglet.gl
 
+ARENA_SIZE = 800
+ROBOT_SIZE = 50
+
 def quad_vertices(origin, size):
 	idx = [0, 1, 2, 0, 2, 3]
 	verts = ( origin[0]          , origin[1],
@@ -33,3 +36,8 @@ def batch_quad(batch, origin, size, colour = (255, 255, 255)):
 
 def batch_sqaure(batch, origin, size, colour):
 	return batch_quad(batch, origin, (size, size), colour)
+
+def batch_robot(batch, center, colour):
+	hrs = ROBOT_SIZE / 2
+	origin = ( center[0] - hrs, center[1] - hrs )
+	return batch_sqaure(batch, origin, ROBOT_SIZE, colour)

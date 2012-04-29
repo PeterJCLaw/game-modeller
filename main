@@ -5,6 +5,11 @@ import time
 import subprocess
 import sys
 import json
+import Queue
+
+import pyglet.app
+from viewer.queueddatasource import QueuedDataSource
+from viewer.robotviewer import RobotViewer
 
 def procOutput(proc):
 	while proc.poll() is None:
@@ -26,16 +31,15 @@ def main():
 	                         stdout = subprocess.PIPE
 	                       )
 
-	start = datetime.now()
-	end = start + timedelta( seconds = 20 )	# 3 minute match
+	def conv(p):
+		for d in fromJSON(procOutput(p)):
+			yield d
 
-	while datetime.now() < end:
-		for data in fromJSON(procOutput(proc)):
-			# do something clever with the data
-			print data
+	qds = QueuedDataSource(proc, conv)
+	rv = RobotViewer(qds, duration = 5)
+	qds.start()
 
-		if proc.poll() is not None:
-			break
+	pyglet.app.run()
 
 	if proc.returncode is None:
 		proc.terminate()
