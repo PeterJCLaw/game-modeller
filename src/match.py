@@ -33,12 +33,17 @@ class Match(object):
 			print json.dumps(rd)
 			sys.stdout.flush()
 
+	def end(self):
+		print dict(type = 'match', state = 'end')
+		for r in self._robots:
+			r.stop()
+
 	def waitForStart(self):
 		assert self._game_start.wait(3)
 
 	def start(self, duration = 180):
 		"Start the game"
-		md = dict(type = 'match', robots = len(self._robots))
+		md = dict(type = 'match', state = 'start', robots = len(self._robots))
 		print json.dumps(md)
 		self._print_state()
 		self._game_start.set()
@@ -51,3 +56,4 @@ if __name__ == '__main__':
 	# Small values for now
 	m = Match(1)
 	m.start(5)
+	m.end()

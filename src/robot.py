@@ -20,6 +20,7 @@ class Robot(object):
 		self._arena = arena
 		self._opponents = set()
 		self._location = Point()
+		self._end = False
 
 	@property
 	def id(self):
@@ -34,12 +35,15 @@ class Robot(object):
 			if not r is self:
 				self._opponents.add(r)
 
+	def stop(self):
+		self._end = True
+
 	def run(self, corner, args = None):
 		self._location = self._arena.corner_location(corner)
 		self._match.waitForStart()
 #		print 'Game started: %d' % self._id
 
-		while True:
+		while not self._end:
 			target = self.getTarget()
 			self.moveTowards(target)
 
