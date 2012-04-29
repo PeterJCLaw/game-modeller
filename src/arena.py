@@ -18,3 +18,7 @@ class Arena(object):
         x = self._width * int(id / 2)
         y = self._height * ( id == 1 or id == 2 )
         return Point(x, y)
+
+    def position_valid(self, pos):
+        return not ( pos.x < 0 or pos.x > self._width
+                  or pos.y < 0 or pos.y > self._height )

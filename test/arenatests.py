@@ -27,5 +27,35 @@ class ArenaTests(unittest.TestCase):
         util.assertEqual(Point(8,0), p)
 
 
+    def test_limits_origin(self):
+        p = Point(0,0)
+        valid = self._arena.position_valid(p)
+        util.assertTrue(valid)
+
+    def test_limits_max(self):
+        p = Point(8, 8)
+        valid = self._arena.position_valid(p)
+        util.assertTrue(valid)
+
+    def test_limits_neg(self):
+        p = Point(8, -8)
+        valid = self._arena.position_valid(p)
+        util.assertFalse(valid)
+
+    def test_limits_pos(self):
+        p = Point(8, 16)
+        valid = self._arena.position_valid(p)
+        util.assertFalse(valid)
+
+    def test_limits_neg2(self):
+        p = Point(-8, 0)
+        valid = self._arena.position_valid(p)
+        util.assertFalse(valid)
+
+    def test_limits_pos2(self):
+        p = Point(16, 0)
+        valid = self._arena.position_valid(p)
+        util.assertFalse(valid)
+
 if __name__ == '__main__':
     unittest.main(buffer=True)
