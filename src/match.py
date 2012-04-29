@@ -9,21 +9,27 @@ from dict_converters import *
 from robot import Robot
 
 class Match(object):
-    def __init__(self, robots, arena = None):
+    def __init__(self, robot_count = 4, robot_type = Robot, robots = None, arena = None):
         # Game start lock
         self._game_start = Event()
 
-        self._robots = []
         if arena is None:
             arena = Arena(8.0, 8.0)
 
-        for i in range(robots):
-            r = Robot(i, self, arena)
+        self._robots = []
+        if robots is not None:
+            self._robots = robots
+
+        robots_needed = max( 0, robot_count - len(self._robots) )
+        for i in xrange(robots_needed):
+            r = robot_type(i, self, arena)
             self._robots.append(r)
+
+        for i in xrange(robot_count):
+            r = self._robots[i]
             t = Thread( target = r.run, args = (i, ) )
             t.start()
 
-        for r in self._robots:
             r.add_opponents(self._robots)
 
     def _print_state(self):
