@@ -7,14 +7,14 @@ import pyglet.app
 from viewer.queueddatasource import QueuedDataSource
 from viewer.robotviewer import RobotViewer
 
-def procOutput(proc):
+def read_process_output_non_blocking(proc):
     while proc.poll() is None:
         data = ''
         while '\n' not in data and proc.poll() is None:
             data += proc.stdout.read(1)
         yield data
 
-def fromJSON(lines):
+def decode_json_from_lines(lines):
     for line in lines:
         try:
             yield json.loads(line)
@@ -22,23 +22,22 @@ def fromJSON(lines):
             break
 
 def main():
-    procInfo = [ 'python', 'src/match.py' ]
-    proc = subprocess.Popen( procInfo,
-                             stdout = subprocess.PIPE
-                           )
+    match_command = [ 'python', 'src/match.py' ]
+    match_process = subprocess.Popen(match_command,
+                                     stdout = subprocess.PIPE)
 
     def conv(p):
-        for d in fromJSON(procOutput(p)):
+        for d in decode_json_from_lines(read_process_output_non_blocking(p)):
             yield d
 
-    qds = QueuedDataSource(proc, conv)
-    rv = RobotViewer(qds, duration = 5)
-    qds.start()
+    data_source = QueuedDataSource(match_process, conv)
+    viewer = RobotViewer(data_source, duration = 5)
+    data_source.start()
 
     pyglet.app.run()
 
-    if proc.returncode is None:
-        proc.terminate()
+    if match_process.returncode is None:
+        match_process.terminate()
 
 if __name__ == '__main__':
     main()
