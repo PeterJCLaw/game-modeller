@@ -8,3 +8,6 @@ def angle_between(a, b):
     while angle > pi:
         angle -= pi
     return angle
+
+def midpoint(a, b):
+    return (a + b) / 2
