@@ -3,13 +3,14 @@ import time
 from datetime import timedelta, datetime
 
 from point import Point
+from vector_maths import length_towards
 
 class Robot(object):
     # Speed (m/s)
-    _speed = 0.1
+    _speed = 0.7
 
     # How often to update position (seconds)
-    _updateDelay = 0.1
+    _updateDelay = 0.05
 
     # How long to move for, before re-evaluating the target (seconds)
     _moveDuration = 1
@@ -47,21 +48,27 @@ class Robot(object):
             target = self.get_target()
             self.move_towards(target)
 
+    def _get_moveable_distance(self, target):
+        remaining = target - self._location
+        travellable = self._speed * self._updateDelay
+        to_move = length_towards(travellable, remaining)
+        return to_move
+
     def move_towards(self, target):
         """
         Move towards the given Point for about a second
         """
 
-        to_move = (target-self._location)
+        # Calculate this once - simulate possible overshoot
+        to_move = self._get_moveable_distance(target)
 #        print 'to_move', to_move
-        dist = to_move * self._speed
-#        print 'dist', dist
 
         end = datetime.now() + timedelta(seconds = self._moveDuration)
         while datetime.now() < end:
 #            print 'Location', self._location
             time.sleep(self._updateDelay)
-            self._location = self._location + dist * self._updateDelay
+            self._location = self._location + to_move
+
 
     def get_target(self):
         """
