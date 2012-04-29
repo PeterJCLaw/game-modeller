@@ -26,7 +26,23 @@ class RobotMoveTests(unittest.TestCase):
         l = Point(round(l.x, 5), round(l.y, 5))
 
         # Moved at 0.1 m/s for 1s
-        util.assertEqual(Point(0, 0.4), l)
+        util.assertEqual(Point(0, 0.1), l)
+
+    def testEndLocation2(self):
+        # TODO: expose these?
+        r = self._robot
+        r._speed = 0.1
+        r._updateDelay = 0.1
+        r._moveDuration = 1
+
+        r.move_towards(Point(10, 0))
+        l = r.location
+
+        # Round to something sensible
+        l = Point(round(l.x, 5), round(l.y, 5))
+
+        # Moved at 0.1 m/s for 1s
+        util.assertEqual(Point(0.1, 0), l)
 
     def testDuration(self):
         start = datetime.now()
