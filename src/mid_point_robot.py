@@ -72,8 +72,9 @@ class MidPointRobot(Robot):
         This would be an input to an actual robot...
         """
 
-        a_id = ( self.id + 1 ) % len(self._opponents)
-        b_id = ( self.id + 2 ) % len(self._opponents)
+        entrants = 1 + len(self._opponents)
+        a_id = ( self.id + 1 ) % entrants
+        b_id = ( self.id + 2 ) % entrants
 
         a = b = None
         for r in self._opponents:
