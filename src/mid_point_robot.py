@@ -66,12 +66,6 @@ class MidPointRobot(Robot):
 
         return best
 
-    def dist_from_bot(self, bot):
-        return self.dist_from(bot.location)
-
-    def dist_from(self, there):
-        return abs(there - self.location)
-
     def get_target_bots(self):
         """
         Return the bots that we're supposed to get between.

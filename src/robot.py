@@ -72,7 +72,6 @@ class Robot(object):
                 return
             self._location = pos
 
-
     def get_target(self):
         """
         Figure out where to move towards.
@@ -80,3 +79,11 @@ class Robot(object):
         """
         # move towards the middle of the arena
         return Point(self._arena.width / 2, self._arena.height / 2)
+
+    ## Useful functions for sub-classes:
+
+    def dist_from_bot(self, bot):
+        return self.dist_from(bot.location)
+
+    def dist_from(self, there):
+        return abs(there - self.location)
