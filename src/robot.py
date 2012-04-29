@@ -7,13 +7,13 @@ from vector_maths import length_towards
 
 class Robot(object):
     # Speed (m/s)
-    _speed = 0.7
+    _speed = 0.6
 
     # How often to update position (seconds)
     _updateDelay = 0.05
 
     # How long to move for, before re-evaluating the target (seconds)
-    _moveDuration = 1
+    _moveDuration = 0.7
 
     def __init__(self, id, match, arena):
         self._id = id
