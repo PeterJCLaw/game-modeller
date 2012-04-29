@@ -31,7 +31,7 @@ def main():
             yield d
 
     data_source = QueuedDataSource(match_process, conv)
-    viewer = RobotViewer(data_source, duration = 5)
+    viewer = RobotViewer(data_source)
     data_source.start()
 
     pyglet.app.run()

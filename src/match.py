@@ -52,9 +52,8 @@ class Match(object):
             time.sleep(0.1)
 
 if __name__ == '__main__':
-    # Small values for now
     m = Match(4)
     try:
-        m.start(5)
+        m.start()
     finally:
         m.end()
